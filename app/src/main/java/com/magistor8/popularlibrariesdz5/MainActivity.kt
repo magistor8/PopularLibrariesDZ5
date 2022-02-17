@@ -18,13 +18,15 @@ class MainActivity : AppCompatActivity() {
             workerThread.start()
         }
         binding.runButtonHigh.setOnClickListener {
-            workerThread.post({Thread.sleep(2_000)}, CustomWorkerThread.Priority.HIGH)
+            workerThread.post({Thread.sleep(1_000)}, CustomWorkerThread.Priority.HIGH)
         }
         binding.runButtonNormal.setOnClickListener {
-            workerThread.post({Thread.sleep(2_000)}, CustomWorkerThread.Priority.NORMAL)
+            workerThread.post({Thread.sleep(1_000)}, CustomWorkerThread.Priority.NORMAL)
         }
         binding.runButtonLow.setOnClickListener {
-            workerThread.post({Thread.sleep(2_000)}, CustomWorkerThread.Priority.LOW)
+            workerThread.post({Thread.sleep(1_000)}, CustomWorkerThread.Priority.LOW)
+            workerThread.post({Thread.sleep(1_000)}, CustomWorkerThread.Priority.LOW)
+            workerThread.post({Thread.sleep(1_000)}, CustomWorkerThread.Priority.LOW)
         }
 
         binding.stopButton.setOnClickListener {

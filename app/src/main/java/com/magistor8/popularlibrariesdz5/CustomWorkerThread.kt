@@ -3,7 +3,6 @@ package com.magistor8.popularlibrariesdz5
 import android.util.Log
 import androidx.annotation.WorkerThread
 import java.util.*
-import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
@@ -19,8 +18,10 @@ class CustomWorkerThread: Thread() {
         val runnable: Runnable,
         val priority: Priority = Priority.NORMAL
     ) : Comparable<Entity> {
-        override fun compareTo(other: Entity) : Int {
-            return -priority.pr
+        override fun compareTo(other: Entity) = when {
+            priority.pr > other.priority.pr -> -1
+            priority.pr < other.priority.pr -> 1
+            else -> 0
         }
     }
 
@@ -36,7 +37,6 @@ class CustomWorkerThread: Thread() {
 
         while (isLoopWorking) {
             try {
-                var runnable: Runnable?
                 lock.withLock {
                     Log.d("@@@", "Сейчас в очереди ${queue.size} задач")
                     val entity = if (queue.size > 0)
